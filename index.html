@@ -3,14 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <title>登入</title>
+<style>
+    /* 整個頁面置中 */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    /* 登入表單框 */
+    .login-box {
+        background-color: white;
+        padding: 30px 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        text-align: center;
+        width: 300px;
+    }
+
+    /* 標題 */
+    .login-box h2 {
+        margin-bottom: 20px;
+    }
+
+    /* label 與 input */
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    /* 登入按鈕 */
+    button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
 </head>
 <body>
-<h2>登入</h2>
-<label>帳號：</label>
-<input type="text" id="account"><br>
-<label>密碼：</label>
-<input type="password" id="password"><br>
-<button onclick="login()">登入</button>
+
+<div class="login-box">
+    <h2>登入</h2>
+    <label for="account">帳號：</label>
+    <input type="text" id="account" placeholder="請輸入帳號">
+
+    <label for="password">密碼：</label>
+    <input type="password" id="password" placeholder="請輸入密碼">
+
+    <button onclick="login()">登入</button>
+</div>
 
 <script>
 async function login() {
@@ -34,5 +102,6 @@ async function login() {
     }
 }
 </script>
+
 </body>
 </html>
