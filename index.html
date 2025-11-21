@@ -92,6 +92,7 @@ async function login() {
         const found = data.players.find(p => p.account === acc && p.password === pwd);
 
         if (found) {
+            localStorage.setItem("loginAccount", acc);
             window.location.href = "myself.html";
         } else {
             alert("帳號或密碼錯誤！");
@@ -105,3 +106,4 @@ async function login() {
 
 </body>
 </html>
+
