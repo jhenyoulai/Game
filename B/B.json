@@ -1,8 +1,8 @@
 {
-  "stamina": 60,
-  "strength": 40,
-  "intelligence": 30,
-  "appearance": 20,
-  "luck": 90,
-  "comprehension": 40
+  "hp": 40,
+  "str": 30,
+  "int": 90,
+  "face": 90,
+  "luk": 30,
+  "sq": 50
 }
