@@ -1,1 +1,8 @@
-
+{
+  "stamina": 80,
+  "strength": 50,
+  "intelligence": 60,
+  "appearance": 70,
+  "luck": 40,
+  "comprehension": 90
+}
