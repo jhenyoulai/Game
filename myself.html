@@ -51,6 +51,12 @@
         font-weight: bold;
         font-size: 20px;
     }
+
+    .error {
+        color: red;
+        font-weight: bold;
+        margin-top: 10px;
+    }
 </style>
 </head>
 <body>
@@ -59,6 +65,7 @@
     <div class="group left-top">
         <div>使用者名稱：</div>
         <div class="username" id="username">尚未登入</div>
+        <div class="error" id="errorMsg"></div>
     </div>
 
     <div class="group right-top">
@@ -66,15 +73,15 @@
     </div>
 
     <div class="group left-middle">
-        <div class="stat">體力: <span id="stamina">0</span></div>
-        <div class="stat">力量: <span id="strength">0</span></div>
-        <div class="stat">智力: <span id="intelligence">0</span></div>
+        <div class="stat">體力: <span id="hp">0</span></div>
+        <div class="stat">力量: <span id="str">0</span></div>
+        <div class="stat">智力: <span id="int">0</span></div>
     </div>
 
     <div class="group right-middle">
-        <div class="stat">外貌: <span id="appearance">0</span></div>
-        <div class="stat">運氣: <span id="luck">0</span></div>
-        <div class="stat">悟性: <span id="comprehension">0</span></div>
+        <div class="stat">外貌: <span id="face">0</span></div>
+        <div class="stat">運氣: <span id="luk">0</span></div>
+        <div class="stat">悟性: <span id="sq">0</span></div>
     </div>
 
     <div class="group left-bottom">
@@ -87,31 +94,29 @@
 </div>
 
 <script>
-    // 假設登入時存的帳號
     const account = localStorage.getItem("loginAccount") || "A"; // 預設 A
-
     document.getElementById("username").textContent = account;
 
-    // 從帳號資料夾讀取 JSON
-    fetch(`Game/${account}/${account}.json`)
+    fetch(`game/${account}/${account}.json`)
         .then(res => {
-            if (!res.ok) throw new Error("讀取 JSON 失敗");
+            if (!res.ok) {
+                throw new Error(`找不到 ${account} 的資料`);
+            }
             return res.json();
         })
         .then(data => {
-            document.getElementById("stamina").textContent = data.stamina;
-            document.getElementById("strength").textContent = data.strength;
-            document.getElementById("intelligence").textContent = data.intelligence;
-            document.getElementById("appearance").textContent = data.appearance;
-            document.getElementById("luck").textContent = data.luck;
-            document.getElementById("comprehension").textContent = data.comprehension;
+            document.getElementById("hp").textContent = data.hp ?? 0;
+            document.getElementById("str").textContent = data.str ?? 0;
+            document.getElementById("int").textContent = data.int ?? 0;
+            document.getElementById("face").textContent = data.face ?? 0;
+            document.getElementById("luk").textContent = data.luk ?? 0;
+            document.getElementById("sq").textContent = data.sq ?? 0;
         })
         .catch(err => {
             console.error(err);
-            alert("無法讀取使用者資料");
+            document.getElementById("errorMsg").textContent = `找不到使用者資料 (${account})，請確認 JSON 檔案是否存在。`;
         });
 </script>
 
 </body>
 </html>
-
