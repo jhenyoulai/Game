@@ -1,11 +1,116 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <title>我的頁面</title>
+<meta charset="UTF-8">
+<title>個人資料</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        width: 800px;
+        height: 600px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 20px;
+        position: relative;
+    }
+
+    .group {
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .left-top { grid-column: 1; grid-row: 1; }
+    .right-top { grid-column: 2; grid-row: 1; }
+    .left-middle { grid-column: 1; grid-row: 2; }
+    .right-middle { grid-column: 2; grid-row: 2; }
+    .left-bottom { grid-column: 1; grid-row: 3; }
+    .right-bottom { grid-column: 2; grid-row: 3; }
+
+    .stat {
+        margin: 5px 0;
+        font-size: 18px;
+    }
+
+    .username {
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
 </head>
 <body>
-    <h1>歡迎進入 MySelf 頁面！</h1>
-    <p>這是登入後才會看到的內容。</p>
+
+<div class="container">
+    <div class="group left-top">
+        <div>使用者名稱：</div>
+        <div class="username" id="username">尚未登入</div>
+    </div>
+
+    <div class="group right-top">
+        <div>右上區塊</div>
+    </div>
+
+    <div class="group left-middle">
+        <div class="stat">體力: <span id="stamina">0</span></div>
+        <div class="stat">力量: <span id="strength">0</span></div>
+        <div class="stat">智力: <span id="intelligence">0</span></div>
+    </div>
+
+    <div class="group right-middle">
+        <div class="stat">外貌: <span id="appearance">0</span></div>
+        <div class="stat">運氣: <span id="luck">0</span></div>
+        <div class="stat">悟性: <span id="comprehension">0</span></div>
+    </div>
+
+    <div class="group left-bottom">
+        <div>左下區塊</div>
+    </div>
+
+    <div class="group right-bottom">
+        <div>右下區塊</div>
+    </div>
+</div>
+
+<script>
+    // 假設登入時存的帳號
+    const account = localStorage.getItem("loginAccount") || "A"; // 預設 A
+
+    document.getElementById("username").textContent = account;
+
+    // 從帳號資料夾讀取 JSON
+    fetch(`game/${account}/${account}.json`)
+        .then(res => {
+            if (!res.ok) throw new Error("讀取 JSON 失敗");
+            return res.json();
+        })
+        .then(data => {
+            document.getElementById("stamina").textContent = data.stamina;
+            document.getElementById("strength").textContent = data.strength;
+            document.getElementById("intelligence").textContent = data.intelligence;
+            document.getElementById("appearance").textContent = data.appearance;
+            document.getElementById("luck").textContent = data.luck;
+            document.getElementById("comprehension").textContent = data.comprehension;
+        })
+        .catch(err => {
+            console.error(err);
+            alert("無法讀取使用者資料");
+        });
+</script>
+
 </body>
 </html>
