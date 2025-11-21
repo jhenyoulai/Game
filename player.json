@@ -1,0 +1,7 @@
+{
+    "players": [
+        { "account": "A", "password": "1" },
+        { "account": "B", "password": "2" },
+        { "account": "C", "password": "3" }
+    ]
+}
