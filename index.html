@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <title>登入頁面</title>
+  <meta charset="UTF-8">
+  <title>登入</title>
 </head>
 <body>
+  <h2>登入</h2>
+  <label>帳號：</label>
+  <input type="text" id="account"><br>
+  <label>密碼：</label>
+  <input type="password" id="password"><br>
+  <button onclick="login()">登入</button>
 
-    <h2>登入 Login</h2>
+  <script>
+    async function login() {
+      const acc = document.getElementById("account").value;
+      const pwd = document.getElementById("password").value;
 
-    <label>帳號：</label>
-    <input type="text" id="account"><br><br>
-
-    <label>密碼：</label>
-    <input type="password" id="password"><br><br>
-
-    <button onclick="login()">登入</button>
-
-    <script>
-        async function login() {
-            let acc = document.getElementById("account").value;
-            let pwd = document.getElementById("password").value;
-
-            // 讀取 player.json
-            const response = await fetch("./player.json");
-            const data = await response.json();
-
-            // 單一帳號情況
-            if (acc === data.account && pwd === data.password) {
-                window.location.href = "myself.html";
-                return;
-            }
-
-            alert("帳號或密碼錯誤！");
+      try {
+        const response = await fetch("./player.json?ts=" + Date.now());
+        if (!response.ok) {
+          throw new Error("讀取 player.json 失敗: " + response.status);
         }
-    </script>
+        const data = await response.json();
 
+        const players = data.players;
+        const found = players.find(p => p.account === acc && p.password === pwd);
+
+        if (found) {
+          window.location.href = "myself.html";
+        } else {
+          alert("帳號或密碼錯誤！");
+        }
+      } catch (err) {
+        console.error("登入時發生錯誤：", err);
+        alert("系統錯誤，請稍後再試。");
+      }
+    }
+  </script>
 </body>
 </html>
-
