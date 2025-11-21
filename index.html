@@ -22,7 +22,7 @@
             let pwd = document.getElementById("password").value;
 
             // 讀取 player.json
-            const response = await fetch("player.json");
+            const response = await fetch("./player.json");
             const data = await response.json();
 
             // 單一帳號情況
@@ -37,3 +37,4 @@
 
 </body>
 </html>
+
