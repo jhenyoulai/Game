@@ -94,7 +94,7 @@
 </div>
 
 <script>
-    const account = localStorage.getItem("loginAccount") || "A"; // 預設 A
+    const account = localStorage.getItem("loginAccount") || " "; // 預設 A
     document.getElementById("username").textContent = account;
 
     fetch(`${account}/${account}.json`)
@@ -120,4 +120,5 @@
 
 </body>
 </html>
+
 
