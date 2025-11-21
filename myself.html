@@ -97,7 +97,7 @@
     const account = localStorage.getItem("loginAccount") || "A"; // 預設 A
     document.getElementById("username").textContent = account;
 
-    fetch(`game/${account}/${account}.json`)
+    fetch(`${account}/${account}.json`)
         .then(res => {
             if (!res.ok) {
                 throw new Error(`找不到 ${account} 的資料`);
@@ -120,3 +120,4 @@
 
 </body>
 </html>
+
